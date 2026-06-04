@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Room | Revival Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root {
+    --color-orange-primary: #F26101;
+    --color-orange-light: #FF9A4D;
+    --color-orange-dark: #A84300;
+    --color-orange-shadow: #632700;
+    --color-blue-primary: #00A8E8;
+    --color-blue-light: #4DD1FF;
+    --color-blue-dark: #00688F;
+    --color-blue-shadow: #003A50;
+    --color-green-primary: #00CC66;
+    --color-green-light: #4DFF99;
+    --color-green-dark: #008040;
+    --color-green-shadow: #004D26;
+    --color-purple-primary: #9D4EDD;
+    --color-purple-light: #C78BFF;
+    --color-purple-dark: #6A2B9E;
+    --color-purple-shadow: #3F1A5E;
+    --color-background-dark: #09090E;
+    --color-panel-background: rgba(28, 28, 40, 0.45);
+    --color-panel-border-top: rgba(255, 255, 255, 0.4);
+    --color-panel-border-side: rgba(255, 255, 255, 0.15);
+    --color-panel-border-bottom: rgba(0, 0, 0, 0.6);
+    --color-panel-highlight: rgba(255, 255, 255, 0.08);
+    --color-text-main: #FFFFFF;
+    --color-text-muted: #E2E2F0;
+    --font-heading: 'Fredoka One', cursive;
+    --font-body: 'Nunito', sans-serif;
+}
+* {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    box-sizing: border-box;
+    cursor: none !important;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+html {
+    scrollbar-width: none;
+}
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-background-dark);
+    color: var(--color-text-main);
+    overflow-x: hidden;
+    width: 100vw;
+    min-height: 100vh;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+.layer-background-image {
+    position: fixed;
+    top: -5%;
+    left: -5%;
+    width: 110vw;
+    height: 110vh;
+    background-image: url('https://i.ibb.co/JZGydJf/image.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: blur(8px) brightness(0.45) saturate(1.4);
+    z-index: -100;
+    will-change: transform;
+}
+.layer-grid-pattern {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 2px, transparent 2px), radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px, 20px 20px;
+    background-position: 0px 0px, 10px 10px;
+    z-index: -90;
+    pointer-events: none;
+}
+.layer-gradient-overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 168, 232, 0.04) 0%, rgba(242, 97, 1, 0.04) 100%);
+    z-index: -80;
+    pointer-events: none;
+}
+.layer-particles-canvas {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    z-index: -60;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+.cursor-element-core {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-text-main);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9), 0px 0px 30px var(--color-orange-primary);
+    transform: translate(-50%, -50%);
+    will-change: transform, left, top;
+}
+.cursor-element-aura {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+    transform: translate(-50%, -50%);
+    transition-property: width, height, border-color, background-color, border-width;
+    transition-duration: 0.25s;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform, width, height, left, top;
+}
+.cursor-element-aura.state-interacting {
+    width: 85px;
+    height: 85px;
+    border-color: var(--color-blue-light);
+    background-color: rgba(0, 168, 232, 0.15);
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    box-shadow: inset 0px 0px 20px rgba(0, 168, 232, 0.5), 0px 0px 30px rgba(0, 168, 232, 0.3);
+}
+.navigation-bar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 5000;
+    background: linear-gradient(180deg, rgba(11, 11, 16, 0.95) 0%, rgba(11, 11, 16, 0.7) 60%, transparent 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+.navigation-brand-wrapper {
+    perspective: 1000px;
+}
+.navigation-brand-image {
+    height: 90px;
+    filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.8));
+    transform-style: preserve-3d;
+    transition-property: transform, filter;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+}
+.navigation-brand-image:hover {
+    transform: scale(1.15) rotate(-3deg) translateZ(30px);
+    filter: drop-shadow(0px 15px 25px var(--color-orange-primary));
+}
+.component-magnetic-wrapper {
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    z-index: 10;
+}
+.component-button-chunky {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    background: linear-gradient(180deg, var(--color-orange-light) 0%, var(--color-orange-primary) 100%);
+    color: var(--color-text-main);
+    text-decoration: none;
+    font-size: 1.6rem;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    padding-left: 55px;
+    padding-right: 55px;
+    border-radius: 100px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.8);
+    border-left-width: 3px;
+    border-left-style: solid;
+    border-left-color: rgba(255, 255, 255, 0.4);
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-right-color: rgba(0, 0, 0, 0.3);
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 12px 0px var(--color-orange-shadow), 0px 20px 40px rgba(0, 0, 0, 0.7), inset 0px 5px 15px rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+    transition-property: transform, box-shadow;
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, box-shadow;
+}
+.component-button-chunky-blue {
+    background: linear-gradient(180deg, var(--color-blue-light) 0%, var(--color-blue-primary) 100%);
+    box-shadow: 0px 12px 0px var(--color-blue-shadow), 0px 20px 40px rgba(0, 0, 0, 0.7), inset 0px 5px 15px rgba(255, 255, 255, 0.4);
+}
+.component-button-chunky::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-25deg);
+    transition-property: left;
+    transition-duration: 0.7s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: -1;
+}
+.component-magnetic-wrapper:hover .component-button-chunky {
+    transform: translateY(-8px) translateZ(20px);
+    box-shadow: 0px 20px 0px var(--color-orange-shadow), 0px 35px 50px rgba(242, 97, 1, 0.5), inset 0px 5px 15px rgba(255, 255, 255, 0.6);
+}
+.component-magnetic-wrapper:hover .component-button-chunky-blue {
+    transform: translateY(-8px) translateZ(20px);
+    box-shadow: 0px 20px 0px var(--color-blue-shadow), 0px 35px 50px rgba(0, 168, 232, 0.5), inset 0px 5px 15px rgba(255, 255, 255, 0.6);
+}
+.component-magnetic-wrapper:hover .component-button-chunky::before {
+    left: 200%;
+}
+.component-magnetic-wrapper:active .component-button-chunky {
+    transform: translateY(12px) translateZ(0px) !important;
+    box-shadow: 0px 0px 0px transparent, 0px 5px 10px rgba(0, 0, 0, 0.8), inset 0px 3px 8px rgba(0, 0, 0, 0.6) !important;
+}
+.typography-style-heading {
+    font-family: var(--font-heading);
+    color: var(--color-text-main);
+    letter-spacing: 2.5px;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+.typography-style-body {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.6);
+}
+.component-liquid-panel {
+    background: var(--color-panel-background);
+    backdrop-filter: blur(45px) saturate(220%);
+    -webkit-backdrop-filter: blur(45px) saturate(220%);
+    border-radius: 45px;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: var(--color-panel-border-top);
+    border-left-width: 2px;
+    border-left-style: solid;
+    border-left-color: var(--color-panel-border-side);
+    border-right-width: 2px;
+    border-right-style: solid;
+    border-right-color: var(--color-panel-border-bottom);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--color-panel-border-bottom);
+    box-shadow: 0px 40px 80px rgba(0, 0, 0, 0.7), inset 0px 2px 25px var(--color-panel-highlight);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+.component-liquid-panel::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+    border-bottom-left-radius: 45px;
+    border-bottom-right-radius: 45px;
+}
+.component-tilt-container {
+    position: relative;
+    perspective: 2500px;
+    z-index: 10;
+}
+.component-tilt-target {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+.layout-section-container {
+    position: relative;
+    z-index: 20;
+    padding-top: 160px;
+    padding-bottom: 160px;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    max-width: 1800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.layout-hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 220px;
+    padding-bottom: 120px;
+}
+.hero-glass-box {
+    padding-top: 90px;
+    padding-bottom: 90px;
+    padding-left: 80px;
+    padding-right: 80px;
+    max-width: 1300px;
+    position: relative;
+    z-index: 1;
+}
+.hero-primary-title {
+    font-size: clamp(5rem, 10vw, 10rem);
+    margin-bottom: 35px;
+    color: var(--color-orange-primary);
+    text-shadow: 0px 10px 0px var(--color-orange-shadow), 0px 25px 50px rgba(0, 0, 0, 0.9);
+    transform: translateZ(140px);
+    position: relative;
+    z-index: 5;
+}
+.hero-secondary-text {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    margin-bottom: 60px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateZ(90px);
+    position: relative;
+    z-index: 5;
+}
+.hero-button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.announcement-panel {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
+    text-align: center;
+    border-top-color: var(--color-orange-light);
+    border-bottom-color: var(--color-orange-shadow);
+    box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.8), 0px 0px 40px rgba(242, 97, 1, 0.2), inset 0px 2px 25px var(--color-panel-highlight);
+}
+.announcement-badge {
+    display: inline-block;
+    background: var(--color-orange-primary);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    box-shadow: 0px 5px 0px var(--color-orange-shadow);
+    transform: translateZ(60px);
+    animation-name: pulse-glow-animation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+.announcement-title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    transform: translateZ(50px);
+    text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.7);
+}
+.announcement-desc {
+    transform: translateZ(30px);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@keyframes pulse-glow-animation {
+    0% {
+        box-shadow: 0px 5px 0px var(--color-orange-shadow), 0px 0px 10px rgba(242, 97, 1, 0.4);
+    }
+    50% {
+        box-shadow: 0px 5px 0px var(--color-orange-shadow), 0px 0px 30px rgba(242, 97, 1, 0.8);
+    }
+    100% {
+        box-shadow: 0px 5px 0px var(--color-orange-shadow), 0px 0px 10px rgba(242, 97, 1, 0.4);
+    }
+}
+.platform-banner-container {
+    background: rgba(15, 15, 20, 0.7);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 40px;
+    width: 100vw;
+    position: relative;
+    margin-left: calc(-50vw + 50%);
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.1);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.7);
+    z-index: 20;
+}
+.platform-banner-grid {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    flex-wrap: wrap;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 4vw;
+    padding-right: 4vw;
+}
+.platform-banner-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #A0A0B5;
+    transition-property: transform, color;
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+}
+.platform-banner-icon {
+    font-size: 4.5rem;
+    margin-bottom: 20px;
+    color: var(--color-text-main);
+    filter: drop-shadow(0px 8px 12px rgba(0, 0, 0, 0.6));
+    transition-property: color, filter;
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateZ(30px);
+}
+.platform-banner-label {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    transform: translateZ(15px);
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+}
+.platform-banner-item:hover {
+    transform: translateY(-20px) scale(1.15) translateZ(50px);
+    color: var(--color-text-main);
+}
+.platform-banner-item:hover .platform-banner-icon {
+    color: var(--color-blue-primary);
+    filter: drop-shadow(0px 15px 30px var(--color-blue-primary));
+}
+.layout-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 70px;
+    margin-top: 100px;
+}
+.feature-glass-box {
+    padding-top: 80px;
+    padding-bottom: 60px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    height: 100%;
+}
+.feature-icon-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-top: 0px;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateZ(100px);
+    background: rgba(0, 168, 232, 0.85);
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.7);
+    border-left-width: 3px;
+    border-left-style: solid;
+    border-left-color: rgba(255, 255, 255, 0.4);
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-right-color: rgba(0, 0, 0, 0.3);
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 15px 0px var(--color-blue-shadow), 0px 30px 50px rgba(0, 0, 0, 0.7), inset 0px 5px 15px rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 5;
+}
+.component-tilt-container:nth-child(2) .feature-icon-wrapper {
+    background: rgba(242, 97, 1, 0.85);
+    box-shadow: 0px 15px 0px var(--color-orange-shadow), 0px 30px 50px rgba(0, 0, 0, 0.7), inset 0px 5px 15px rgba(255, 255, 255, 0.5);
+}
+.component-tilt-container:nth-child(3) .feature-icon-wrapper {
+    background: rgba(0, 204, 102, 0.85);
+    box-shadow: 0px 15px 0px var(--color-green-shadow), 0px 30px 50px rgba(0, 0, 0, 0.7), inset 0px 5px 15px rgba(255, 255, 255, 0.5);
+}
+.component-tilt-container:nth-child(4) .feature-icon-wrapper {
+    background: rgba(157, 78, 221, 0.85);
+    box-shadow: 0px 15px 0px var(--color-purple-shadow), 0px 30px 50px rgba(0, 0, 0, 0.7), inset 0px 5px 15px rgba(255, 255, 255, 0.5);
+}
+.feature-icon-graphic {
+    font-size: 4.5rem;
+    color: var(--color-text-main);
+    text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    transform: translateZ(30px);
+}
+.feature-title-text {
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+    transform: translateZ(70px);
+    color: var(--color-text-main);
+    text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.7);
+    position: relative;
+    z-index: 4;
+}
+.feature-description-text {
+    transform: translateZ(40px);
+    position: relative;
+    z-index: 4;
+}
+.spoilers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+}
+@media (max-width: 900px) {
+    .spoilers-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.spoiler-image-card {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 40px;
+    border-top-color: rgba(255, 255, 255, 0.6);
+    border-left-color: rgba(255, 255, 255, 0.3);
+}
+.spoiler-img-wrapper {
+    width: 100%;
+    height: 350px;
+    border-radius: 30px;
+    overflow: hidden;
+    transform: translateZ(40px);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+.spoiler-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.roadmap-main-heading {
+    font-size: clamp(4rem, 8vw, 8rem);
+    text-align: center;
+    margin-bottom: 120px;
+    color: var(--color-blue-primary);
+    text-shadow: 0px 10px 0px var(--color-blue-shadow), 0px 30px 60px rgba(0, 0, 0, 0.8);
+}
+.roadmap-timeline-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 90px;
+    position: relative;
+}
+.roadmap-vertical-spine {
+    position: absolute;
+    top: 0px;
+    left: 200px;
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 10%, rgba(255, 255, 255, 0.15) 90%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 4px;
+    z-index: 0;
+}
+.roadmap-event-container {
+    display: flex;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    position: relative;
+    z-index: 5;
+}
+.roadmap-date-display {
+    background: rgba(0, 168, 232, 0.75);
+    backdrop-filter: blur(15px);
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 400px;
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-right-color: rgba(255, 255, 255, 0.3);
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 45px;
+    box-shadow: inset -8px 0px 20px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
+}
+.component-tilt-container:nth-child(2) .roadmap-date-display {
+    background: rgba(242, 97, 1, 0.75);
+}
+.component-tilt-container:nth-child(3) .roadmap-date-display {
+    background: rgba(157, 78, 221, 0.75);
+}
+.roadmap-date-number {
+    font-family: var(--font-heading);
+    font-size: 8rem;
+    color: var(--color-text-main);
+    text-shadow: 0px 8px 0px rgba(0, 0, 0, 0.4);
+    line-height: 1;
+    transform: translateZ(90px);
+    position: relative;
+    z-index: 10;
+}
+.roadmap-date-month {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-top: 15px;
+    transform: translateZ(60px);
+    text-shadow: 0px 5px 0px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10;
+}
+.roadmap-content-area {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 80px;
+    padding-right: 80px;
+    flex-grow: 1;
+    transform-style: preserve-3d;
+}
+.roadmap-content-title {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    transform: translateZ(70px);
+    text-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 5;
+}
+.roadmap-content-paragraph {
+    transform: translateZ(40px);
+    position: relative;
+    z-index: 5;
+    font-size: 1.55rem;
+}
+@media (max-width: 1300px) {
+    .roadmap-vertical-spine {
+        display: none;
+    }
+    .roadmap-event-container {
+        flex-direction: column;
+    }
+    .roadmap-date-display {
+        min-height: 250px;
+        border-right-style: none;
+        border-bottom-width: 3px;
+        border-bottom-style: solid;
+        border-bottom-color: rgba(255, 255, 255, 0.3);
+        border-top-right-radius: 45px;
+        border-bottom-left-radius: 0px;
+    }
+}
+.layout-footer-global {
+    text-align: center;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: rgba(10, 10, 15, 0.98);
+    position: relative;
+    z-index: 100;
+    margin-top: 150px;
+    border-top-width: 4px;
+    border-top-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0px -20px 50px rgba(0, 0, 0, 0.8);
+}
+.footer-logo-graphic {
+    height: 140px;
+    margin-bottom: 50px;
+    filter: drop-shadow(0px 15px 30px rgba(0, 0, 0, 0.9));
+}
+.footer-copyright-text {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: #666680;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+.footer-social-wrapper {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.footer-social-link {
+    color: #666680;
+    font-size: 2.5rem;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    text-decoration: none;
+}
+.footer-social-link:hover {
+    color: var(--color-orange-primary);
+    transform: translateY(-5px);
+    filter: drop-shadow(0px 5px 15px var(--color-orange-primary));
+}
+.layout-statistics-banner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    background: linear-gradient(90deg, rgba(0, 168, 232, 0.1), rgba(242, 97, 1, 0.1));
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.1);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    margin-top: 100px;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+.statistics-item-box {
+    text-align: center;
+    transform-style: preserve-3d;
+}
+.statistics-number-value {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    color: var(--color-orange-primary);
+    text-shadow: 0px 6px 0px var(--color-orange-shadow), 0px 10px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+.statistics-label-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.icon-margin-right {
+    margin-right: 18px;
+}
+.icon-size-large {
+    font-size: 2.2rem;
+}
+.icon-size-medium {
+    font-size: 2rem;
+}
+
+/* --- MOBILE RESPONSIVENESS ADDITIONS (UPDATED) --- */
+@media (max-width: 768px) {
+    * { cursor: auto !important; }
+    .cursor-element-core, .cursor-element-aura { display: none !important; }
+
+    /* Flatten all 3D effects on mobile to prevent overflow, text rendering bugs, and scrolling issues */
+    .component-tilt-target, .hero-primary-title, .hero-secondary-text, .announcement-badge, 
+    .announcement-title, .announcement-desc, .platform-banner-icon, .platform-banner-label, 
+    .feature-icon-graphic, .feature-title-text, .feature-description-text, .spoiler-img-wrapper, 
+    .roadmap-date-number, .roadmap-date-month, .roadmap-content-title, .roadmap-content-paragraph {
+        transform: translateZ(0) !important;
+    }
+
+    /* Navigation */
+    .navigation-bar-container {
+        padding: 15px 4vw;
+        flex-direction: row; 
+    }
+    .navigation-brand-image {
+        height: 45px;
+    }
+    .component-button-chunky {
+        padding: 12px 20px;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+    .icon-size-large {
+        font-size: 1.2rem;
+        margin-right: 8px;
+    }
+
+    /* Hero Section Fixed */
+    .layout-section-container {
+        padding: 80px 5vw;
+    }
+    .layout-hero-section {
+        padding-top: 140px;
+        padding-bottom: 60px;
+        min-height: auto;
+    }
+    .hero-glass-box {
+        padding: 40px 20px;
+    }
+    .hero-primary-title {
+        font-size: 2.6rem; 
+        margin-bottom: 15px;
+        line-height: 1.1;
+    }
+    .hero-secondary-text {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+    .hero-button-group {
+        margin-top: 30px;
+    }
+    .icon-size-medium {
+        font-size: 1.2rem;
+        margin-right: 8px;
+    }
+
+    /* General Layout scaling */
+    .announcement-panel {
+        padding: 30px 20px;
+    }
+    .announcement-title {
+        font-size: 2.2rem;
+    }
+
+    /* Fixed Platform Banner Overflow */
+    .platform-banner-container {
+        width: 100%;
+        margin-left: 0; 
+        padding: 40px 0;
+    }
+    .platform-banner-grid {
+        gap: 30px;
+        padding: 0 5vw;
+    }
+    .platform-banner-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+    .platform-banner-label {
+        font-size: 1rem;
+    }
+
+    /* Rest of Elements */
+    .layout-features-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-top: 50px;
+    }
+    .feature-glass-box {
+        padding: 40px 20px;
+    }
+    .feature-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+    }
+    .feature-icon-graphic {
+        font-size: 3rem;
+    }
+    .feature-title-text {
+        font-size: 2rem;
+    }
+    
+    .roadmap-main-heading {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+    .roadmap-date-display {
+        min-height: auto;
+        min-width: 100%;
+        padding: 30px 20px;
+    }
+    .roadmap-date-number {
+        font-size: 4rem;
+    }
+    .roadmap-content-area {
+        padding: 30px 20px;
+    }
+    .roadmap-content-title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .layout-statistics-banner {
+        flex-direction: column;
+        gap: 40px;
+        padding: 50px 5vw;
+    }
+    .statistics-number-value {
+        font-size: 3.5rem;
+    }
+    
+    .layout-footer-global {
+        padding-top: 60px;
+        padding-bottom: 60px;
+        margin-top: 60px;
+    }
+    .footer-logo-graphic {
+        height: 70px;
+        margin-bottom: 30px;
+    }
+    .footer-copyright-text {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-primary-title { font-size: 2.2rem; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    * { cursor: auto !important; }
+    .cursor-element-core, .cursor-element-aura { display: none !important; }
+}
+/* --- END OF MOBILE RESPONSIVENESS ADDITIONS --- */
+</style>
+</head>
+<body>
+
+<div class="layer-background-image"></div>
+<div class="layer-grid-pattern"></div>
+<div class="layer-gradient-overlay"></div>
+<canvas class="layer-particles-canvas" id="particle-engine-canvas"></canvas>
+
+<div class="cursor-element-core"></div>
+<div class="cursor-element-aura"></div>
+
+<nav class="navigation-bar-container">
+    <div class="navigation-brand-wrapper">
+        <img src="https://i.ibb.co/fzMxFxTr/image.png" class="navigation-brand-image animation-scroll-pop" alt="Resume Room Logo">
+    </div>
+    <div class="component-magnetic-wrapper animation-scroll-pop">
+        <a href="https://discord.gg/4ZxrrYvm5" class="component-button-chunky component-button-chunky-blue" target="_blank">
+            <i class="fa-brands fa-discord icon-margin-right icon-size-large"></i>JOIN DISCORD
+        </a>
+    </div>
+</nav>
+
+<section class="layout-section-container layout-hero-section">
+    <div class="component-tilt-container animation-scroll-reveal" style="width: 100%; display: flex; justify-content: center;">
+        <div class="component-liquid-panel hero-glass-box component-tilt-target">
+            <h1 class="typography-style-heading hero-primary-title">RESUME ROOM</h1>
+            <p class="typography-style-body hero-secondary-text">Welcome back to the golden era! Grab your Maker Pen, invite your friends, and relive the classic memories. Play your favorite games, build crazy inventions, and hang out in the ultimate community revival.</p>
+            <div class="hero-button-group">
+                <div class="component-magnetic-wrapper">
+                    <a href="https://discord.gg/4ZxrrYvm5" class="component-button-chunky" target="_blank">
+                        <i class="fa-solid fa-play icon-margin-right icon-size-medium"></i>DOWNLOAD NOW
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="layout-section-container" style="padding-top: 0px; padding-bottom: 50px;">
+    <div class="component-tilt-container animation-scroll-reveal">
+        <div class="component-liquid-panel announcement-panel component-tilt-target">
+            <div class="announcement-badge"><i class="fa-solid fa-bell" style="margin-right: 10px;"></i>LATEST NEWS</div>
+            <h2 class="typography-style-heading announcement-title">Soon?</h2>
+            <p class="typography-style-body announcement-desc">We are currently working for the 3 releases coming in a few weeks. As i already said, there will be 3 different releases, scroll down to the bottom of the page for more information.</p>
+        </div>
+    </div>
+</section>
+
+<div class="platform-banner-container animation-scroll-slide-up">
+    <div class="platform-banner-grid">
+        <div class="platform-banner-item"><i class="fa-brands fa-windows platform-banner-icon"></i><span class="platform-banner-label">Windows</span></div>
+        <div class="platform-banner-item"><i class="fa-brands fa-apple platform-banner-icon"></i><span class="platform-banner-label">macOS</span></div>
+        <div class="platform-banner-item"><i class="fa-brands fa-app-store-ios platform-banner-icon"></i><span class="platform-banner-label">iOS</span></div>
+        <div class="platform-banner-item"><i class="fa-brands fa-android platform-banner-icon"></i><span class="platform-banner-label">Android</span></div>
+        <div class="platform-banner-item"><i class="fa-solid fa-vr-cardboard platform-banner-icon"></i><span class="platform-banner-label">Meta Quest</span></div>
+        <div class="platform-banner-item"><i class="fa-solid fa-headset platform-banner-icon"></i><span class="platform-banner-label">Pico VR</span></div>
+    </div>
+</div>
+
+<div class="layout-statistics-banner animation-scroll-slide-up">
+    <div class="component-tilt-container">
+        <div class="statistics-item-box component-tilt-target">
+            <div class="statistics-number-value">100%</div>
+            <div class="statistics-label-text">Authentic Game</div>
+        </div>
+    </div>
+    <div class="component-tilt-container">
+        <div class="statistics-item-box component-tilt-target">
+            <div class="statistics-number-value" style="color: var(--color-blue-primary);">0%</div>
+            <div class="statistics-label-text">Lag & Stutters</div>
+        </div>
+    </div>
+    <div class="component-tilt-container">
+        <div class="statistics-item-box component-tilt-target">
+            <div class="statistics-number-value" style="color: var(--color-green-primary);">24/7</div>
+            <div class="statistics-label-text">Live Servers</div>
+        </div>
+    </div>
+</div>
+
+<section class="layout-section-container">
+    <div class="layout-features-grid">
+        <div class="component-tilt-container animation-scroll-card-feature">
+            <div class="component-liquid-panel feature-glass-box component-tilt-target">
+                <div class="feature-icon-wrapper"><i class="fa-solid fa-hand-sparkles feature-icon-graphic"></i></div>
+                <h3 class="typography-style-heading feature-title-text">Feels Just Like Magic!</h3>
+                <p class="typography-style-body feature-description-text">We've brought back the exact same movement, jumping, and throwing you remember. Every high-five, dodgeball throw, and paintball tag feels perfectly nostalgic.</p>
+            </div>
+        </div>
+        <div class="component-tilt-container animation-scroll-card-feature">
+            <div class="component-liquid-panel feature-glass-box component-tilt-target">
+                <div class="feature-icon-wrapper"><i class="fa-solid fa-pen-nib feature-icon-graphic"></i></div>
+                <h3 class="typography-style-heading feature-title-text">Endless Creation!</h3>
+                <p class="typography-style-body feature-description-text">The classic Maker Pen is back in your hands! We've removed the old ink limits so you and your friends can build the biggest, craziest rooms imaginable.</p>
+            </div>
+        </div>
+        <div class="component-tilt-container animation-scroll-card-feature">
+            <div class="component-liquid-panel feature-glass-box component-tilt-target">
+                <div class="feature-icon-wrapper"><i class="fa-solid fa-users feature-icon-graphic"></i></div>
+                <h3 class="typography-style-heading feature-title-text">Zero Lag, More Friends!</h3>
+                <p class="typography-style-body feature-description-text">We've upgraded the servers behind the scenes so you can hang out with even more players in a single room without the annoying lag. Smooth gameplay all day!</p>
+            </div>
+        </div>
+        <div class="component-tilt-container animation-scroll-card-feature">
+            <div class="component-liquid-panel feature-glass-box component-tilt-target">
+                <div class="feature-icon-wrapper"><i class="fa-solid fa-heart feature-icon-graphic"></i></div>
+                <h3 class="typography-style-heading feature-title-text">Your Rooms, Live!</h3>
+                <p class="typography-style-body feature-description-text">Built an awesome room or game in recroom? Share it with us in our Discord server, and we'll import it straight into the live game for everyone to explore and enjoy.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="layout-section-container">
+    <h2 class="typography-style-heading roadmap-main-heading animation-scroll-title" style="margin-bottom: 40px; color: var(--color-orange-primary); text-shadow: 0px 10px 0px var(--color-orange-shadow), 0px 30px 60px rgba(0,0,0,0.8);">SNEAK PEEKS & SPOILERS</h2>
+    <p class="typography-style-body animation-scroll-title" style="text-align: center; max-width: 900px; margin: 0 auto 80px auto;">Take an exclusive look at what the developing team is cooking up in the background. These unreleased screenshots are straight from our developer builds. More coming soon!</p>
+    
+    <div class="spoilers-grid">
+        <div class="component-tilt-container animation-scroll-card-spoiler">
+            <div class="component-liquid-panel spoiler-image-card component-tilt-target">
+                <div class="spoiler-img-wrapper">
+                    <img src="https://i.ibb.co/YBGr5k5Z/image.png" class="spoiler-img" alt="Spoiler Image 1">
+                </div>
+            </div>
+        </div>
+        <div class="component-tilt-container animation-scroll-card-spoiler">
+            <div class="component-liquid-panel spoiler-image-card component-tilt-target">
+                <div class="spoiler-img-wrapper">
+                    <img src="https://i.ibb.co/YBGr5k5Z/image.png" class="spoiler-img" alt="Spoiler Image 2">
+                </div>
+            </div>
+        </div>
+        <div class="component-tilt-container animation-scroll-card-spoiler">
+            <div class="component-liquid-panel spoiler-image-card component-tilt-target">
+                <div class="spoiler-img-wrapper">
+                    <img src="https://i.ibb.co/YBGr5k5Z/image.png" class="spoiler-img" alt="Spoiler Image 3">
+                </div>
+            </div>
+        </div>
+        <div class="component-tilt-container animation-scroll-card-spoiler">
+            <div class="component-liquid-panel spoiler-image-card component-tilt-target">
+                <div class="spoiler-img-wrapper">
+                    <img src="https://i.ibb.co/YBGr5k5Z/image.png" class="spoiler-img" alt="Spoiler Image 4">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="layout-section-container" style="padding-top: 50px;">
+    <h2 class="typography-style-heading roadmap-main-heading animation-scroll-title">FUN UPDATES AHEAD</h2>
+    <div class="roadmap-timeline-wrapper">
+        <div class="roadmap-vertical-spine"></div>
+        
+        <div class="component-tilt-container animation-scroll-card-roadmap">
+            <div class="component-liquid-panel roadmap-event-container component-tilt-target">
+                <div class="roadmap-date-display">
+                    <span class="roadmap-date-number">22</span>
+                    <span class="roadmap-date-month">June</span>
+                </div>
+                <div class="roadmap-content-area">
+                    <h3 class="typography-style-heading roadmap-content-title">The Journey Begins!</h3>
+                    <p class="typography-style-body roadmap-content-paragraph">The beta is finally here! Jump in and explore the classic menus and rooms. iOS and macOS aren't quite ready yet, and you might see a few silly bugs while we test the waters, but the fun is officially back!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="component-tilt-container animation-scroll-card-roadmap">
+            <div class="component-liquid-panel roadmap-event-container component-tilt-target">
+                <div class="roadmap-date-display">
+                    <span class="roadmap-date-number">29</span>
+                    <span class="roadmap-date-month">June</span>
+                </div>
+                <div class="roadmap-content-area">
+                    <h3 class="typography-style-heading roadmap-content-title">Everyone Joins the Party!</h3>
+                    <p class="typography-style-body roadmap-content-paragraph">Apple players, it's your turn! iOS and macOS are officially joining the fun. Plus, we're taking a bunch of amazing community-made rooms from our Discord and adding them directly into the live game!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="component-tilt-container animation-scroll-card-roadmap">
+            <div class="component-liquid-panel roadmap-event-container component-tilt-target">
+                <div class="roadmap-date-display">
+                    <span class="roadmap-date-number">09</span>
+                    <span class="roadmap-date-month">July</span>
+                </div>
+                <div class="roadmap-content-area">
+                    <h3 class="typography-style-heading roadmap-content-title">The Massive Update!</h3>
+                    <p class="typography-style-body roadmap-content-paragraph">It's fully complete! Show off with the brand new Ranks & Tags system, upload your own images, create brand new rooms from scratch, and enjoy tons of new fun features to hang out with your friends.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="layout-footer-global">
+    <img src="https://i.ibb.co/tpkHyM3H/image.png" class="footer-logo-graphic animation-scroll-pop" alt="Resume Room Logo">
+    <p class="footer-copyright-text">© 2026 RESUME ROOM REVIVAL. NOT AFFILIATED WITH AGAINST GRAVITY.</p>
+    <div class="footer-social-wrapper">
+        <a href="https://discord.gg/4ZxrrYvm5" class="footer-social-link"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://discord.gg/4ZxrrYvm5" class="footer-social-link"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://www.tiktok.com/@resumeroom?is_from_webapp=1&sender_device=pc" class="footer-social-link" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+const cursorCoreElement = document.querySelector('.cursor-element-core');
+const cursorAuraElement = document.querySelector('.cursor-element-aura');
+let globalTargetMouseX = window.innerWidth / 2;
+let globalTargetMouseY = window.innerHeight / 2;
+let currentAuraPositionX = globalTargetMouseX;
+let currentAuraPositionY = globalTargetMouseY;
+
+window.addEventListener('mousemove', function(event) {
+    globalTargetMouseX = event.clientX;
+    globalTargetMouseY = event.clientY;
+    
+    cursorCoreElement.style.left = globalTargetMouseX + 'px';
+    cursorCoreElement.style.top = globalTargetMouseY + 'px';
+});
+
+function animateCursorAuraLoop() {
+    currentAuraPositionX += (globalTargetMouseX - currentAuraPositionX) * 0.25;
+    currentAuraPositionY += (globalTargetMouseY - currentAuraPositionY) * 0.25;
+    
+    cursorAuraElement.style.left = currentAuraPositionX + 'px';
+    cursorAuraElement.style.top = currentAuraPositionY + 'px';
+    
+    requestAnimationFrame(animateCursorAuraLoop);
+}
+animateCursorAuraLoop();
+
+const interactiveDomTags = document.querySelectorAll('a, .component-magnetic-wrapper, .platform-banner-item, .component-tilt-container, .footer-social-link');
+for (let index = 0; index < interactiveDomTags.length; index++) {
+    const element = interactiveDomTags[index];
+    element.addEventListener('mouseenter', function() {
+        cursorAuraElement.classList.add('state-interacting');
+    });
+    element.addEventListener('mouseleave', function() {
+        cursorAuraElement.classList.remove('state-interacting');
+    });
+}
+
+const magneticContainersList = document.querySelectorAll('.component-magnetic-wrapper');
+for (let index = 0; index < magneticContainersList.length; index++) {
+    const container = magneticContainersList[index];
+    const targetButtonElement = container.querySelector('.component-button-chunky, .component-button-chunky-blue');
+    
+    container.addEventListener('mousemove', function(event) {
+        const boundingRectangle = container.getBoundingClientRect();
+        const offsetXValue = (event.clientX - boundingRectangle.left - boundingRectangle.width / 2) * 0.4;
+        const offsetYValue = (event.clientY - boundingRectangle.top - boundingRectangle.height / 2) * 0.4;
+        
+        gsap.to(targetButtonElement, { 
+            x: offsetXValue, 
+            y: offsetYValue, 
+            rotationY: offsetXValue * 0.15, 
+            rotationX: -offsetYValue * 0.15, 
+            duration: 0.4, 
+            ease: "power3.out" 
+        });
+    });
+    
+    container.addEventListener('mouseleave', function() {
+        gsap.to(targetButtonElement, { 
+            x: 0, 
+            y: 0, 
+            rotationY: 0, 
+            rotationX: 0, 
+            duration: 0.9, 
+            ease: "elastic.out(1.2, 0.4)" 
+        });
+    });
+    
+    container.addEventListener('mousedown', function() {
+        gsap.to(targetButtonElement, { scale: 0.92, duration: 0.1 });
+    });
+    
+    container.addEventListener('mouseup', function() {
+        gsap.to(targetButtonElement, { scale: 1, duration: 0.7, ease: "elastic.out(1.5, 0.3)" });
+    });
+}
+
+class AdvancedTiltPhysicsEngine {
+    constructor(wrapperElementNode) {
+        this.wrapperElement = wrapperElementNode;
+        this.targetElement = this.wrapperElement.querySelector('.component-tilt-target');
+        this.boundingRectangle = null;
+        this.mousePositionX = 0;
+        this.mousePositionY = 0;
+        this.targetRotationAngleX = 0;
+        this.targetRotationAngleY = 0;
+        this.currentRotationAngleX = 0;
+        this.currentRotationAngleY = 0;
+        this.easingFactor = 0.12;
+        this.isCurrentlyHovering = false;
+        this.forceMultiplierValue = this.wrapperElement.closest('.layout-hero-section') ? 25 : 10;
+        this.animationFrameIdentifier = null;
+
+        this.updateBoundingRectangle = this.updateBoundingRectangle.bind(this);
+        this.handleMouseMovement = this.handleMouseMovement.bind(this);
+        this.handleMouseEnterEvent = this.handleMouseEnterEvent.bind(this);
+        this.handleMouseLeaveEvent = this.handleMouseLeaveEvent.bind(this);
+        this.renderPhysicsCalculation = this.renderPhysicsCalculation.bind(this);
+
+        this.initializeEngine();
+    }
+
+    initializeEngine() {
+        window.addEventListener('resize', this.updateBoundingRectangle);
+        window.addEventListener('scroll', this.updateBoundingRectangle);
+        this.wrapperElement.addEventListener('mouseenter', this.handleMouseEnterEvent);
+        this.wrapperElement.addEventListener('mousemove', this.handleMouseMovement);
+        this.wrapperElement.addEventListener('mouseleave', this.handleMouseLeaveEvent);
+    }
+
+    updateBoundingRectangle() {
+        this.boundingRectangle = this.wrapperElement.getBoundingClientRect();
+    }
+
+    handleMouseEnterEvent() {
+        this.updateBoundingRectangle();
+        this.isCurrentlyHovering = true;
+        
+        if (this.animationFrameIdentifier === null) {
+            this.renderPhysicsCalculation();
+        }
+    }
+
+    handleMouseMovement(event) {
+        if (this.isCurrentlyHovering === false) return;
+        this.mousePositionX = event.clientX - this.boundingRectangle.left;
+        this.mousePositionY = event.clientY - this.boundingRectangle.top;
+        const centerXValue = this.boundingRectangle.width / 2;
+        const centerYValue = this.boundingRectangle.height / 2;
+        this.targetRotationAngleX = ((this.mousePositionY - centerYValue) / centerYValue) * -this.forceMultiplierValue;
+        this.targetRotationAngleY = ((this.mousePositionX - centerXValue) / centerXValue) * this.forceMultiplierValue;
+    }
+
+    handleMouseLeaveEvent() {
+        this.isCurrentlyHovering = false;
+        this.targetRotationAngleX = 0;
+        this.targetRotationAngleY = 0;
+    }
+
+    renderPhysicsCalculation() {
+        this.currentRotationAngleX += (this.targetRotationAngleX - this.currentRotationAngleX) * this.easingFactor;
+        this.currentRotationAngleY += (this.targetRotationAngleY - this.currentRotationAngleY) * this.easingFactor;
+        
+        if (this.targetElement !== null) {
+            this.targetElement.style.transform = `perspective(2500px) rotateX(${this.currentRotationAngleX}deg) rotateY(${this.currentRotationAngleY}deg) translateZ(0)`;
+        }
+
+        if (this.isCurrentlyHovering === true || Math.abs(this.currentRotationAngleX) > 0.05 || Math.abs(this.currentRotationAngleY) > 0.05) {
+            this.animationFrameIdentifier = requestAnimationFrame(this.renderPhysicsCalculation);
+        } else {
+            this.currentRotationAngleX = 0;
+            this.currentRotationAngleY = 0;
+            if (this.targetElement !== null) {
+                this.targetElement.style.transform = `perspective(2500px) rotateX(0deg) rotateY(0deg) translateZ(0)`;
+            }
+            this.animationFrameIdentifier = null;
+        }
+    }
+}
+
+const allTiltWrappersList = document.querySelectorAll('.component-tilt-container');
+for (let index = 0; index < allTiltWrappersList.length; index++) {
+    new AdvancedTiltPhysicsEngine(allTiltWrappersList[index]);
+}
+
+const scrollPopAnimationElements = gsap.utils.toArray('.animation-scroll-pop');
+for (let index = 0; index < scrollPopAnimationElements.length; index++) {
+    const element = scrollPopAnimationElements[index];
+    gsap.fromTo(element, 
+        { 
+            scale: 0, 
+            rotation: -20 
+        }, 
+        { 
+            scale: 1, 
+            rotation: 0, 
+            duration: 1.4, 
+            ease: "elastic.out(1.2, 0.5)", 
+            scrollTrigger: { 
+                trigger: element, 
+                start: "top 95%", 
+                toggleActions: "play none none none" 
+            } 
+        }
+    );
+}
+
+const scrollRevealAnimationElements = gsap.utils.toArray('.animation-scroll-reveal');
+for (let index = 0; index < scrollRevealAnimationElements.length; index++) {
+    const element = scrollRevealAnimationElements[index];
+    gsap.fromTo(element, 
+        { 
+            scale: 0.8, 
+            rotationX: -25, 
+            y: 80 
+        }, 
+        { 
+            scrollTrigger: { 
+                trigger: element, 
+                start: "top 85%", 
+                toggleActions: "play none none none" 
+            }, 
+            duration: 1.6, 
+            scale: 1, 
+            rotationX: 0, 
+            y: 0, 
+            ease: "back.out(1.5)" 
+        }
+    );
+}
+
+const scrollSlideUpAnimationElements = gsap.utils.toArray('.animation-scroll-slide-up');
+for (let index = 0; index < scrollSlideUpAnimationElements.length; index++) {
+    const element = scrollSlideUpAnimationElements[index];
+    gsap.fromTo(element, 
+        { 
+            y: 100 
+        }, 
+        { 
+            scrollTrigger: { 
+                trigger: element, 
+                start: "top 90%", 
+                toggleActions: "play none none none" 
+            }, 
+            duration: 1.2, 
+            y: 0, 
+            ease: "power3.out" 
+        }
+    );
+}
+
+const featureCardsList = document.querySelectorAll('.animation-scroll-card-feature');
+if (featureCardsList.length > 0) {
+    gsap.fromTo(featureCardsList, 
+        { 
+            y: 150, 
+            rotationY: 15, 
+            scale: 0.9 
+        }, 
+        { 
+            y: 0, 
+            rotationY: 0, 
+            scale: 1, 
+            duration: 1.4, 
+            stagger: 0.15, 
+            ease: "back.out(1.4)", 
+            scrollTrigger: { 
+                trigger: '.layout-features-grid', 
+                start: "top 80%",
+                toggleActions: "play none none none"
+            } 
+        }
+    );
+}
+
+const spoilerCardsList = document.querySelectorAll('.animation-scroll-card-spoiler');
+if (spoilerCardsList.length > 0) {
+    gsap.fromTo(spoilerCardsList, 
+        { 
+            y: 150, 
+            rotationY: 15, 
+            scale: 0.9 
+        }, 
+        { 
+            y: 0, 
+            rotationY: 0, 
+            scale: 1, 
+            duration: 1.4, 
+            stagger: 0.15, 
+            ease: "back.out(1.4)", 
+            scrollTrigger: { 
+                trigger: '.spoilers-grid', 
+                start: "top 80%",
+                toggleActions: "play none none none"
+            } 
+        }
+    );
+}
+
+const roadmapCardsList = document.querySelectorAll('.animation-scroll-card-roadmap');
+if (roadmapCardsList.length > 0) {
+    gsap.fromTo(roadmapCardsList, 
+        { 
+            y: 150, 
+            rotationY: 15, 
+            scale: 0.9 
+        }, 
+        { 
+            y: 0, 
+            rotationY: 0, 
+            scale: 1, 
+            duration: 1.4, 
+            stagger: 0.15, 
+            ease: "back.out(1.4)", 
+            scrollTrigger: { 
+                trigger: '.roadmap-timeline-wrapper', 
+                start: "top 80%",
+                toggleActions: "play none none none"
+            } 
+        }
+    );
+}
+
+gsap.fromTo('.animation-scroll-title', 
+    { 
+        scale: 0.6, 
+        y: 60 
+    }, 
+    { 
+        scale: 1, 
+        y: 0, 
+        duration: 1.4, 
+        ease: "elastic.out(1.2, 0.4)", 
+        scrollTrigger: { 
+            trigger: '.animation-scroll-title', 
+            start: "top 90%", 
+            toggleActions: "play none none none" 
+        } 
+    }
+);
+
+const globalFloatingElementsList = document.querySelectorAll('.feature-icon-wrapper, .platform-banner-icon, .navigation-brand-image, .footer-logo-graphic, .statistics-number-value');
+for (let index = 0; index < globalFloatingElementsList.length; index++) {
+    const element = globalFloatingElementsList[index];
+    gsap.to(element, { 
+        y: "-=18", 
+        duration: 2.5 + (index % 3), 
+        yoyo: true, 
+        repeat: -1, 
+        ease: "sine.inOut", 
+        delay: index * 0.15 
+    });
+}
+
+const particleEngineCanvasElement = document.getElementById('particle-engine-canvas');
+const particleRenderingContext = particleEngineCanvasElement.getContext('2d', { alpha: true });
+let particleCanvasCurrentWidth = 0;
+let particleCanvasCurrentHeight = 0;
+const activeParticlesCollectionArray = [];
+const activeInteractionBurstsArray = [];
+
+function initializeAndResizeCanvasDimensions() {
+    particleCanvasCurrentWidth = particleEngineCanvasElement.width = window.innerWidth;
+    particleCanvasCurrentHeight = particleEngineCanvasElement.height = window.innerHeight;
+}
+window.addEventListener('resize', initializeAndResizeCanvasDimensions);
+initializeAndResizeCanvasDimensions();
+
+function generateOffscreenGlowingOrb(colorString) {
+    const offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = 40;
+    offscreenCanvas.height = 40;
+    const offscreenContext = offscreenCanvas.getContext('2d');
+    const radialGradient = offscreenContext.createRadialGradient(20, 20, 0, 20, 20, 20);
+    radialGradient.addColorStop(0, colorString);
+    radialGradient.addColorStop(0.2, colorString);
+    radialGradient.addColorStop(1, 'transparent');
+    offscreenContext.fillStyle = radialGradient;
+    offscreenContext.fillRect(0, 0, 40, 40);
+    return offscreenCanvas;
+}
+const preRenderedOrbOrange = generateOffscreenGlowingOrb('rgba(242, 97, 1, 1)');
+const preRenderedOrbBlue = generateOffscreenGlowingOrb('rgba(0, 168, 232, 1)');
+
+class HighPerformanceMagicParticle {
+    constructor() {
+        this.positionX = Math.random() * particleCanvasCurrentWidth;
+        this.positionY = Math.random() * particleCanvasCurrentHeight;
+        this.depthValueZ = Math.random() * 2 + 1;
+        this.velocityVectorX = (Math.random() - 0.5) * 1.5;
+        this.velocityVectorY = (Math.random() - 0.5) * 1.5;
+        this.imageSource = Math.random() > 0.5 ? preRenderedOrbOrange : preRenderedOrbBlue;
+        this.baseOpacityValue = Math.random() * 0.5 + 0.1;
+        this.pulsationTimerValue = Math.random() * 100;
+    }
+    
+    calculatePhysicsAndUpdate(mouseXDelta, mouseYDelta) {
+        this.positionX += this.velocityVectorX - mouseXDelta / this.depthValueZ;
+        this.positionY += this.velocityVectorY - mouseYDelta / this.depthValueZ;
+        this.pulsationTimerValue += 0.05;
+        
+        if (this.positionX < -50) {
+            this.positionX = particleCanvasCurrentWidth + 50;
+        }
+        if (this.positionX > particleCanvasCurrentWidth + 50) {
+            this.positionX = -50;
+        }
+        if (this.positionY < -50) {
+            this.positionY = particleCanvasCurrentHeight + 50;
+        }
+        if (this.positionY > particleCanvasCurrentHeight + 50) {
+            this.positionY = -50;
+        }
+    }
+    
+    renderParticleToContext() {
+        const dynamicAlphaValue = Math.max(0, this.baseOpacityValue + Math.sin(this.pulsationTimerValue) * 0.2);
+        particleRenderingContext.globalAlpha = dynamicAlphaValue;
+        const scaleSize = 30 / this.depthValueZ;
+        particleRenderingContext.drawImage(this.imageSource, this.positionX - scaleSize / 2, this.positionY - scaleSize / 2, scaleSize, scaleSize);
+    }
+}
+
+class FastClickBurstParticle {
+    constructor(originX, originY) {
+        this.positionX = originX;
+        this.positionY = originY;
+        const explosionAngleValue = Math.random() * Math.PI * 2;
+        const explosionSpeedValue = Math.random() * 10 + 5;
+        this.velocityVectorX = Math.cos(explosionAngleValue) * explosionSpeedValue;
+        this.velocityVectorY = Math.sin(explosionAngleValue) * explosionSpeedValue;
+        this.radiusSizeValue = Math.random() * 5 + 3;
+        this.opacityAlphaValue = 1;
+        this.hexColorString = Math.random() > 0.5 ? '#F26101' : '#00A8E8';
+    }
+    
+    updatePhysics() {
+        this.positionX += this.velocityVectorX;
+        this.positionY += this.velocityVectorY;
+        this.velocityVectorX *= 0.9;
+        this.velocityVectorY *= 0.9;
+        this.opacityAlphaValue -= 0.03;
+        this.radiusSizeValue *= 0.95;
+    }
+    
+    renderParticleToContext() {
+        particleRenderingContext.beginPath();
+        particleRenderingContext.arc(this.positionX, this.positionY, this.radiusSizeValue, 0, Math.PI * 2);
+        particleRenderingContext.fillStyle = this.hexColorString;
+        particleRenderingContext.globalAlpha = Math.max(0, this.opacityAlphaValue);
+        particleRenderingContext.fill();
+    }
+}
+
+function triggerHighPerformanceParticleBurst(clientX, clientY) {
+    for (let index = 0; index < 15; index++) {
+        activeInteractionBurstsArray.push(new FastClickBurstParticle(clientX, clientY));
+    }
+}
+
+window.addEventListener('mousedown', function() {
+    triggerHighPerformanceParticleBurst(globalTargetMouseX, globalTargetMouseY);
+});
+
+for (let index = 0; index < 80; index++) {
+    activeParticlesCollectionArray.push(new HighPerformanceMagicParticle());
+}
+
+let canvasMouseDeltaXValue = 0;
+let canvasMouseDeltaYValue = 0;
+window.addEventListener('mousemove', function(event) {
+    canvasMouseDeltaXValue = (event.clientX - particleCanvasCurrentWidth / 2) * 0.01;
+    canvasMouseDeltaYValue = (event.clientY - particleCanvasCurrentHeight / 2) * 0.01;
+});
+
+let previousScrollPositionYValue = window.scrollY;
+window.addEventListener('scroll', function() {
+    const currentScrollPositionYValue = window.scrollY;
+    const scrollDifferenceYValue = currentScrollPositionYValue - previousScrollPositionYValue;
+    for (let index = 0; index < activeParticlesCollectionArray.length; index++) {
+        activeParticlesCollectionArray[index].positionY -= scrollDifferenceYValue * (1 / activeParticlesCollectionArray[index].depthValueZ) * 0.6;
+    }
+    previousScrollPositionYValue = currentScrollPositionYValue;
+});
+
+function executeMasterRenderLoopEngine() {
+    requestAnimationFrame(executeMasterRenderLoopEngine);
+    particleRenderingContext.clearRect(0, 0, particleCanvasCurrentWidth, particleCanvasCurrentHeight);
+    
+    for (let index = 0; index < activeParticlesCollectionArray.length; index++) {
+        activeParticlesCollectionArray[index].calculatePhysicsAndUpdate(canvasMouseDeltaXValue, canvasMouseDeltaYValue);
+        activeParticlesCollectionArray[index].renderParticleToContext();
+    }
+    
+    for (let burstIndex = activeInteractionBurstsArray.length - 1; burstIndex >= 0; burstIndex--) {
+        activeInteractionBurstsArray[burstIndex].updatePhysics();
+        activeInteractionBurstsArray[burstIndex].renderParticleToContext();
+        if (activeInteractionBurstsArray[burstIndex].opacityAlphaValue <= 0) {
+            activeInteractionBurstsArray.splice(burstIndex, 1);
+        }
+    }
+}
+executeMasterRenderLoopEngine();
+</script>
+</body>
+</html>
